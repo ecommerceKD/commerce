@@ -1,15 +1,11 @@
 const express = require('express');
 const routes = express.Router();
 
-// ROTAS ADMIN
-routes.get('/teste', (req, res) => {
-    res.json({message: 'Home Usuário'})
-})
+const Categoria = require('./controllers/categorias.controller')
 
-routes.get('/produtos', (req, res) => {
-    res.json({message: 'Home Produtos'})
-})
 
-// ROTAS USUÁRIOS
+// ROTAS CATEGORIAS
+routes.get('/api/categorias', Categoria.index);
+routes.post('/api/categorias', Categoria.create);
 
 module.exports = routes;
