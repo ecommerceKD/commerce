@@ -1,18 +1,18 @@
-import express from 'express';
+import { Request, Response } from 'express';
 import Categoria from '../models/categoria.model'
 
-async function index(req: express.Request, res: express.Response) {
+async function index(req: Request, res: Response) {
     const categoria = await Categoria.find()
     return res.json(categoria)
 }
 
-async function create(req: express.Request, res: express.Response) {
+async function create(req: Request, res: Response) {
     const { nome_categoria } = req.body
     let data = {}
     let categoria = await Categoria.findOne({ nome_categoria })
 
-    if(!categoria) {
-        data = { nome_categoria}
+    if (!categoria) {
+        data = { nome_categoria }
         categoria = await Categoria.create(data)
         return res.status(200).json(categoria)
     } else {
@@ -20,4 +20,4 @@ async function create(req: express.Request, res: express.Response) {
     }
 }
 
-export {index, create}
+export { index, create }

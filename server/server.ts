@@ -1,25 +1,32 @@
+import dotenv from "dotenv"
 import express from "express";
-import cookieParser from "cookie-parser";
 import cors from "cors";
+import routes  from './src/routes'
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 import { connect } from "mongoose"
 
-import routes from './src/routes'
-
 const app = express();
+dotenv.config()
+
 const port = process.env.PORT || 8980;
 
 async function run(): Promise<void> {
-    await connect('mongodb://localhost:27017/ecommerce-alpha')
+    await connect(process.env.MONGO_CONNECT)
     console.log("Banco conectado")
 }
 run().catch(err => console.log(err))
 
 
-app.use(cors());
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.json())
+app.use(cors());
+app.use(cookieParser())
 
-app.use(routes)
+app.use(routes);
+
+
 
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`)
