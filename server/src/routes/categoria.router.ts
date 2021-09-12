@@ -5,6 +5,6 @@ import { verifyJWT } from '../middleware'
 const categoriaRouter = Router()
 
 categoriaRouter.get('/', verifyJWT, index)
-categoriaRouter.post('/post', verifyJWT, create)
+categoriaRouter.post('/', verifyJWT, create)
 
 export default categoriaRouter

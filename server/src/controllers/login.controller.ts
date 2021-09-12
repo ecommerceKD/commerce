@@ -2,7 +2,6 @@ import { Request, Response, } from 'express'
 import { handlerAuthentication } from '../auth/autenticacao.auth'
 
 async function login(req: Request, res: Response) {
-    console.log(req.body.user, req.body.password)
     const token = await handlerAuthentication(req.body.user, req.body.password)
 
     if (token) return res.status(200).json({ auth: true, token: token })
