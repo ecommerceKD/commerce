@@ -1,9 +1,15 @@
-async function handleAuth(user: string, password: string): Promise<string> {
-    const user_db = "admin" // buscar user no banco de dados
-    const pass_db = "admin" // buscar password no banco de dados
-    const id = "id_user" // id do usuário no banco de dados
-    
-    if ((user === user_db) && (password === pass_db)) {
+import { compareSync } from 'bcrypt'
+import Usuario from '../models/usuario.model'
+
+
+async function handleAuth(email: string, password: string): Promise<string> {
+    const user_db = await Usuario.find({ "email_usuario": email })
+    if (user_db.length <= 0) return null;
+
+    const verifyPass = await compareSync(password, user_db[0].senha1_usuario)
+
+    if (verifyPass) {
+        const id = user_db[0].id
         return id
     }
 

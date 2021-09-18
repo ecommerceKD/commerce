@@ -5,6 +5,9 @@ import routes  from './src/routes'
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import { connect } from "mongoose"
+import passport from "passport";
+import strategyLocal from "./src/auth/strategy.auth"
+
 
 const app = express();
 dotenv.config()
@@ -17,15 +20,17 @@ async function run(): Promise<void> {
 }
 run().catch(err => console.log(err))
 
+strategyLocal(passport)
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json())
 app.use(cors());
 app.use(cookieParser())
+app.use(passport.initialize());
+// app.use(passport.session())
 
 app.use(routes);
-
 
 
 app.listen(port, () => {

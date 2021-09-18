@@ -7,9 +7,7 @@ async function verifyJWT(req: Request, res: Response, next: NextFunction) {
     if (!token) return res.status(401).json({ auth: false, message: "token vazio" })
 
     verify(String(token), process.env.JWT_SECRET, (err, decoded) => {
-
         if (err) return res.status(500).json({ auth: false, message: "Falha ao autenticar token" })
-
         //req.userId = decoded.id
         next()
     })
