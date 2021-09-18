@@ -8,7 +8,7 @@ async function handlerAuthentication(email: string, password: string): Promise<s
         const token = sign(
             { id },
             process.env.JWT_SECRET,
-            // { expiresIn: 300 }// expires in 5min
+            { expiresIn: 300 }// expires in 5min
         )
         return token
     }
