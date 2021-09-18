@@ -8,7 +8,3 @@ routes.use('/login', login)
 routes.use('/categoria', categoria)
 
 export default routes
-
-
-
-

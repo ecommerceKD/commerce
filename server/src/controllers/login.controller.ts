@@ -1,4 +1,4 @@
-import { Request, Response, } from 'express'
+import { Request, Response } from 'express'
 import { handlerAuthentication } from '../auth/autenticacao.auth'
 
 async function login(req: Request, res: Response) {

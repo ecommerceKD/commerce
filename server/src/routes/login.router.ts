@@ -5,5 +5,4 @@ const loginRouter = Router()
 
 loginRouter.get('/', login)
 
-
 export default loginRouter
