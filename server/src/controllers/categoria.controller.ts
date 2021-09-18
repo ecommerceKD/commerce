@@ -7,6 +7,7 @@ async function index(req: Request, res: Response) {
 }
 
 async function create(req: Request, res: Response) {
+    console.log(req.body.nome_categoria)
     const { nome_categoria } = req.body
     let data = {}
     let categoria = await Categoria.findOne({ nome_categoria })
