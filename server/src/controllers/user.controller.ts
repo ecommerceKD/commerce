@@ -36,9 +36,22 @@ async function create(req: Request, res: Response) {
     }
 }
 
-async function read(req: Request, res: Response) {
+async function read_user(req: Request, res: Response) {
     try {
-        const all_users = await Usuario.find()
+        const all_users = await Usuario.find({ eAdmin: false })
+        return res.status(200).json(all_users)
+    } catch (error) {
+        return res.status(404).json(
+            {
+                message: "Lista vazia",
+                error: error
+            })
+    }
+}
+
+async function read_admin(req: Request, res: Response) {
+    try {
+        const all_users = await Usuario.find({ eAdmin: true })
         return res.status(200).json(all_users)
     } catch (error) {
         return res.status(404).json(
@@ -97,4 +110,4 @@ async function delete_user(req: Request, res: Response) {
     return res.status(201).json(del_user)
 }
 
-export { create, read, update, delete_user }
+export { create, read_user, read_admin, update, delete_user }

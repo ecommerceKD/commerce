@@ -1,11 +1,13 @@
 import { Router } from "express";
+import { verifyJWT } from '../middleware'
 import * as user from '../controllers/user.controller'
 
-const userRouter = Router()
+const user_router = Router()
 
-userRouter.get('/', user.read)
-userRouter.post('/', user.create)
-userRouter.put('/:id', user.update)
-userRouter.delete('/:id', user.delete_user)
+user_router.get('/', user.read_user)
+user_router.get('/admin', verifyJWT, user.read_admin)
+user_router.post('/', user.create)
+user_router.put('/:id', user.update)
+user_router.delete('/:id', user.delete_user)
 
-export default userRouter
+export default user_router
