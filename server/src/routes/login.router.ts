@@ -5,6 +5,6 @@ import login from "../controllers/login.controller"
 const loginRouter = Router()
 
 
-loginRouter.get('/', passport.authenticate("local"), login)
+loginRouter.post('/', passport.authenticate("local"), login)
 
 export default loginRouter
