@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken'
+import Usuario from "./models/usuario.model"
 
 async function verifyJWT(req: Request, res: Response, next: NextFunction) {
     const token = req.headers['x-access-token']
@@ -13,4 +14,16 @@ async function verifyJWT(req: Request, res: Response, next: NextFunction) {
     })
 }
 
-export { verifyJWT }
+async function verifyActiveAccount(req: Request, res: Response, next: NextFunction) {
+    const user = await Usuario.findOne({ email: req.body.email })
+
+    if (user.status != "Active") {
+        return res.status(401).json({ message: "Conta não validado, por favor, verifique seu email" })
+    }
+
+    
+
+    next()
+}
+
+export { verifyJWT, verifyActiveAccount }

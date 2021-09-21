@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { hash } from "bcrypt"
 import Usuario from '../models/usuario.model'
+import { send_confirm_email } from '../config/nodemailer.config'
 const saltRounds = 10
 
 async function create(req: Request, res: Response) {
@@ -10,7 +11,8 @@ async function create(req: Request, res: Response) {
     // Encriptando a senha do usuario para salvar no bd
     const hash_pass1 = await hash(req.body.senha1_usuario, saltRounds)
     const hash_pass2 = await hash(req.body.senha2_usuario, saltRounds)
-
+    const hash_confirmCode = await hash(req.body.nome_usuario, saltRounds)
+    const confirmationCode = hash_confirmCode.replace('/','_')
     if (!usuario) {
         const data = {
             "nome_usuario": req.body.nome_usuario,
@@ -18,6 +20,8 @@ async function create(req: Request, res: Response) {
             "senha1_usuario": hash_pass1,
             "senha2_usuario": hash_pass2,
             "eAdmin": req.body.eAdmin,
+            // "status": req.body.status,
+            "confirmationCode": confirmationCode,
             "rua_usuario": req.body.rua_usuario,
             "bairro_usuario": req.body.bairro_usuario,
             "cidade_usuario": req.body.cidade_usuario,
@@ -30,6 +34,10 @@ async function create(req: Request, res: Response) {
         }
 
         usuario = await Usuario.create(data)
+
+        //enviar email com link de confirmação
+        send_confirm_email(data.email_usuario, data.nome_usuario, data.confirmationCode)
+
         return res.status(201).json(usuario)
     } else {
         return res.status(500).json({ mensagem: "Usuário já existe", usuario })
@@ -78,6 +86,8 @@ async function update(req: Request, res: Response) {
                 "senha1_usuario": hash_pass1,
                 "senha2_usuario": hash_pass2,
                 "eAdmin": req.body.eAdmin,
+                // "status": req.body.status,
+                // "confirmationCode": req.body.confirmationCode,
                 "rua_usuario": req.body.rua_usuario,
                 "bairro_usuario": req.body.bairro_usuario,
                 "cidade_usuario": req.body.cidade_usuario,

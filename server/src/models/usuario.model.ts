@@ -7,6 +7,9 @@ interface UsuarioInterface {
     senha1_usuario: string,
     senha2_usuario: string,
     eAdmin: boolean,
+    status: string,
+    confirmationCode: string,
+
     //Endereço
     rua_usuario: string,
     bairro_usuario: string,
@@ -28,6 +31,15 @@ const schema = new Schema<UsuarioInterface>(
         senha1_usuario: { type: String, required: true },
         senha2_usuario: { type: String, required: true },
         eAdmin: { type: Boolean, default: false },
+        status: {
+            type: String,
+            enum: ['Pending', 'Active'],
+            default: 'Pending'
+        },
+        confirmationCode: {
+            type: String,
+            unique: true
+        },
 
         //Endereço
         rua_usuario: { type: String },

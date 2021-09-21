@@ -16,7 +16,7 @@ const port = process.env.PORT || 8980;
 
 async function run(): Promise<void> {
     await connect(process.env.MONGO_CONNECT)
-    console.log("Banco conectado")
+    console.log("Servidor MONGODB conectado")
 }
 run().catch(err => console.log(err))
 
@@ -34,5 +34,5 @@ app.use(routes);
 
 
 app.listen(port, () => {
-    console.log(`Servidor rodando na porta ${port}`)
+    console.log(`Servidor PORTA ${port}`)
 })
