@@ -17,7 +17,10 @@ async function handler_authentication_user(email: string, password: string): Pro
 
 async function handler_authentication_admin(email: string, password: string): Promise<string> {
     const id = await handle_auth_admin(email, password) //verifica se o admin existe, se é um admin e valida a senha
-    
+
+    /*Precisa de um sistema de auto refresh do token
+    para o usuário não precisar ficar refazendo o login 
+    a cada 5 minuto */
     if (id) {
         const token = sign(
             { id },
