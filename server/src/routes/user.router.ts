@@ -1,10 +1,13 @@
 import { Router } from "express";
-import passport from "passport"
+import { verifyJWT } from '../middleware'
 import * as user from '../controllers/user.controller'
 
-const userRouter = Router()
+const user_router = Router()
 
-userRouter.get('/', passport.authenticate("local"), user.login)
-userRouter.post('/', user.create)
+user_router.get('/', user.read_user)
+user_router.get('/admin', verifyJWT, user.read_admin)
+user_router.post('/', user.create)
+user_router.put('/:id', user.update)
+user_router.delete('/:id', user.delete_user)
 
-export default userRouter
+export default user_router

@@ -2,13 +2,21 @@ import { compareSync } from 'bcrypt'
 import { Strategy } from 'passport-local'
 import Usuario from "../models/usuario.model"
 
-export default function (passport) {
+interface PassportInterface {
+    serializeUser: (arg0: (email: any, done: (arg0: any, arg1: any) => void) => void) => void
 
-    passport.serializeUser((email, done) => {
+    deserializeUser: (arg0: (id: any, done: any) => Promise<void>) => void
+    
+    use: (arg0: Strategy) => void
+}
+
+export default function (passport: PassportInterface) {
+
+    passport.serializeUser((email: any, done: (arg0: any, arg1: any) => void) => {
         done(null, email);
     });
 
-    passport.deserializeUser(async (id, done) => {
+    passport.deserializeUser(async (id: any, done) => {
         try {
             const user = await Usuario.findById(id);
             done(null, user);

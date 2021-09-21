@@ -2,9 +2,9 @@ import { Router } from "express";
 import { create, index } from '../controllers/categoria.controller'
 import { verifyJWT } from '../middleware'
 
-const categoriaRouter = Router()
+const categoria_router = Router()
 
-categoriaRouter.get('/', verifyJWT, index)
-categoriaRouter.post('/', verifyJWT, create)
+categoria_router.get('/', verifyJWT, index)
+categoria_router.post('/', verifyJWT, create)
 
-export default categoriaRouter
+export default categoria_router
