@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
 import { hash } from "bcrypt"
 import Usuario from '../models/usuario.model'
-import { send_confirm_email } from '../config/nodemailer.config'
+import { send_email } from '../config/nodemailer.config'
+import { body_confirm_email } from '../config/body_email.config'
 const saltRounds = 10
 
 async function create(req: Request, res: Response) {
@@ -12,7 +13,7 @@ async function create(req: Request, res: Response) {
     const hash_pass1 = await hash(req.body.senha1_usuario, saltRounds)
     const hash_pass2 = await hash(req.body.senha2_usuario, saltRounds)
     const hash_confirmCode = await hash(req.body.nome_usuario, saltRounds)
-    const confirmationCode = hash_confirmCode.replace('/','_')
+    const confirmationCode = hash_confirmCode.replace('/', '_')
     if (!usuario) {
         const data = {
             "nome_usuario": req.body.nome_usuario,
@@ -36,7 +37,12 @@ async function create(req: Request, res: Response) {
         usuario = await Usuario.create(data)
 
         //enviar email com link de confirmação
-        send_confirm_email(data.email_usuario, data.nome_usuario, data.confirmationCode)
+        send_email(
+            data.email_usuario,
+            data.nome_usuario,
+            data.confirmationCode,
+            body_confirm_email
+        )
 
         return res.status(201).json(usuario)
     } else {
