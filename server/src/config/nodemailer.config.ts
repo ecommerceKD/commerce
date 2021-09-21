@@ -1,6 +1,5 @@
 import { createTransport } from 'nodemailer'
 import { smtp } from './smtp.config'
-import { body_email } from './body_email.config'
 
 const transport = createTransport(smtp)
 
@@ -12,14 +11,14 @@ transport.verify(function (error, success) {
     }
 });
 
-async function send_confirm_email(email: string, name: string, confirmationCode: string) {
+async function send_email(email: string, name: string, link_code: string, body: Function) {
     transport.sendMail({
         from: "UMBU STORE <umbustores@gmail.com>",
         to: email,
         subject: "UMBU STORE",
-        html: body_email(name, confirmationCode)
+        html: body(name, link_code)
     })
     console.log('Email enviado!')
 }
 
-export { send_confirm_email }
+export { send_email }

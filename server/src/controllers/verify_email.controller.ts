@@ -3,17 +3,19 @@ import Usuario from '../models/usuario.model'
 
 
 async function verify_email(req: Request, res: Response) {
-    const user = await Usuario.findOne({ confirmationCode: req.params.confirmationCode })
+    try {
+        const user = await Usuario.findOne({ confirmationCode: req.params.confirmationCode })
 
-    if (!user) return res.status(404).send({ message: "Usuario não encontrado!" })
+        const user_up = await Usuario.findByIdAndUpdate(
+            user.id,
+            { status: "Active" },
+            { new: true }
+        )
 
-    const user_up = await Usuario.findByIdAndUpdate(
-        user.id,
-        { status: "Active" },
-        { new: true }
-    )
-
-    res.status(200).send({ message: "Email confirmado com sucesso!", user_up })
+        res.status(200).send({ message: "Email confirmado com sucesso!", user_up })
+    } catch (error) {
+        return res.status(404).send({ message: "Usuario não encontrado!" })
+    }
 }
 
 export { verify_email }
