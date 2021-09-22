@@ -20,7 +20,8 @@ async function handler_authentication_admin(email: string, password: string): Pr
 
     /*Precisa de um sistema de auto refresh do token
     para o usuário não precisar ficar refazendo o login 
-    a cada 5 minuto */
+    a cada 5 minuto */ 
+    //Parece que isso é no front end kkkkkkk
     if (id) {
         const token = sign(
             { id },
