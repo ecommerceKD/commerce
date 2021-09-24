@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@font-face {
+  font-family: "PNBC-R";
+  src: url("./fonts/post-no-bills-colombo.regular.ttf");
+}
+
+$Primary-color: #8d7cd8;
+$Secondary-color: #c2b5fc;
+$Buy-color: #81d87c;
+$White-color: #f0f0f0;
+$Black-color: #1a1a1a;
+
+$Primary-font: "PNBC-R";
+
+$Max-width: 1500px;
