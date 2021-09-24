@@ -1,0 +1,95 @@
+@import "../../index.scss";
+
+div.card-product {
+  max-width: 300px;
+  min-width: 200px;
+  width: 100%;
+  max-height: 380px;
+  height: 100%;
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  
+  &:hover div.price {
+    bottom: -1px;
+  }
+
+  &:hover div.background-card > img {
+    filter: brightness(0.5);
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover div.card-icons {
+    bottom: 0;
+  }
+
+  div.background-card {
+    width: 100%;
+    > img.background-img {
+      object-fit: contain;
+      border-radius: 15px;
+      width: 100%;
+    }
+  }
+
+  div.card-icons {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: space-evenly;
+    padding: 5px;
+    position: absolute;
+    bottom: -500px;
+    width: 100%;
+
+    transition: all 0.3s ease-in-out;
+
+    button.icon-options {
+      background: transparent;
+      border: 1px solid;
+      border-radius: 50%;
+      color: $White-color;
+      font-size: 150%;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        color: $Primary-color;
+      }
+
+      &:active {
+        color: $Buy-color;
+      }
+
+      .icon {
+        object-fit: contain;
+      }
+    }
+  }
+
+  div.price {
+    position: absolute;
+    bottom: -60px;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+    > button.price-button {
+      border-radius: 0 0 15px 15px;
+      background: $Secondary-color;
+      border: none;
+      color: $Black-color;
+      width: 100%;
+      padding: 10px 0;
+      font-size: 1em;
+      cursor: pointer;
+
+      &:hover {
+        filter: invert(0.1);
+      }
+
+      &:active {
+        background: $Buy-color;
+      }
+    }
+  }
+}
