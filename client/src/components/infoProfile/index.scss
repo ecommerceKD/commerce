@@ -1,0 +1,71 @@
+@import "../../index.scss";
+
+div.card-address-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+
+  background: #ededed;
+  padding: 20px;
+  padding-right: 25px;
+  border-radius: 15px;
+
+  div.address-infos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  div.icons-address {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+
+    .address-delete {
+      font-size: 1.5em;
+      color: #ff000058;
+      cursor: pointer;
+
+      &:hover {
+        color: $Primary-color;
+      }
+
+      &:active {
+        transform: scale(0.8);
+      }
+    }
+
+    div.content-alert-delete-address {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+
+      >small{
+        position: absolute;
+        right: 80px;
+        white-space: nowrap;
+      }
+
+      .address-info-delete {
+        color: #ffff00;
+        filter: drop-shadow(0px 0px 2px #00000081);
+        font-size: 1.5em;
+      }
+    }
+  }
+}
+
+div.card-order-info{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  background: #ededed;
+  padding: 20px;
+  padding-right: 25px;
+  border-radius: 15px;
+}

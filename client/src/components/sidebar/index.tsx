@@ -3,11 +3,7 @@ import { BiMenuAltLeft } from '../../icons'
 
 import './index.scss'
 
-interface SidebarInterface {
-    close?: boolean;
-}
-
-export default function Sidebar(props: SidebarInterface) {
+export default function Sidebar() {
     const [closeSidebar, setCloseSidebar] = useState({})
     const [buttonMenu, setButtonMenu] = useState({})
     const [overlay, setOverlay] = useState({})

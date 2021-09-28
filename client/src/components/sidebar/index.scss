@@ -49,18 +49,28 @@ aside#sidebar {
       padding: 10px;
       padding-left: 30px;
       cursor: pointer;
-
-      transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
-
-      &:hover {
+      position: relative;
+      &::before{
+        content: "";
+        width: 10px;
+        height: 35px;
         background: $Primary-color;
         border-radius: 0 15px 15px 0;
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: -1;
+        transition: all 0.5s ease-in-out;
       }
 
-      &:active {
-        border-radius: 0 15px 15px 0;
-        width: 0;
+      &:active::before{
+        transform: translateX(-400px);
       }
+
+      &:hover::before {
+        width: 100%;
+      }
+
     }
   }
 }
