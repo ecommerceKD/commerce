@@ -63,6 +63,20 @@ async function read_user(req: Request, res: Response) {
     }
 }
 
+async function only_user(req: Request, res: Response) {
+    try {
+        const id = req.params.id
+        const user = await Usuario.find({ _id: id })
+        return res.status(200).json(user)
+    } catch (error) {
+        return res.status(404).json(
+            {
+                message: "Usuario não encontrado",
+                error: error
+            })
+    }
+}
+
 async function read_admin(req: Request, res: Response) {
     try {
         const all_users = await Usuario.find({ eAdmin: true })
@@ -126,4 +140,4 @@ async function delete_user(req: Request, res: Response) {
     return res.status(201).json(del_user)
 }
 
-export { create, read_user, read_admin, update, delete_user }
+export { create, read_user, only_user, read_admin, update, delete_user }
