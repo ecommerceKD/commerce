@@ -1,0 +1,32 @@
+@import '../../index.scss';
+
+footer#footer-home{
+    display: flex;
+    width: 100%;
+    background: $Secondary-color;
+    margin-top: 100px;
+    justify-content: space-around;
+    padding: 20px;
+    color: $Black-color;
+
+    div.content-footer{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        >h3, >a{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        >a{
+            text-decoration: none;
+            color: $Black-color;
+
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+    }
+} 

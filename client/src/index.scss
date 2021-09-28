@@ -17,6 +17,10 @@ code {
     monospace;
 }
 
+::-webkit-scrollbar{
+  display: none;
+}
+
 @font-face {
   font-family: "PNBC-R";
   src: url("./fonts/post-no-bills-colombo.regular.ttf");
@@ -26,7 +30,7 @@ $Primary-color: #8d7cd8;
 $Secondary-color: #c2b5fc;
 $Buy-color: #81d87c;
 $White-color: #f0f0f0;
-$Black-color: #1a1a1a;
+$Black-color: #333333;
 
 $Primary-font: "PNBC-R";
 

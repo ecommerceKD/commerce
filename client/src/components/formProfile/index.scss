@@ -1,0 +1,89 @@
+@import "../../index.scss";
+
+form#form-data {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 20px;
+
+  fieldset.fieldset-data {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    background: #ededed;
+
+    div.content-inputs {
+      display: flex;
+      justify-content: space-between;
+      gap: 50px;
+
+      @media only screen and (max-width: 870px) {
+        flex-direction: column;
+        gap: 35px;
+      }
+    }
+
+    div.content-data {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      width: 100%;
+
+      &:focus-within > label {
+        bottom: 35px;
+      }
+
+      .focus {
+        bottom: 35px;
+      }
+
+      > label {
+        position: absolute;
+        bottom: 5px;
+        left: 9px;
+        color: $Primary-color;
+        font-weight: bold;
+        transition: all 0.4s ease-in-out;
+      }
+
+      input.input-data {
+        border: none;
+        border-bottom: 1px solid;
+        padding: 20px 5px 5px 10px;
+        outline: none;
+        border-radius: 4px;
+        font-size: 1em;
+        background: transparent;
+
+        &:focus {
+          border-bottom: 1px solid $Primary-color;
+        }
+
+        &:focus > label.label-data {
+          top: 0;
+        }
+      }
+    }
+  }
+
+  input[type="submit"]{
+    border: none;
+    width: 100px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: $Secondary-color;
+    font-size: 1em;
+    cursor: pointer;
+
+    &:hover{
+      filter: invert(.1);
+    }
+
+    &:active{
+      transform: scale(.9)
+    }
+  }
+}
