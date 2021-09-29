@@ -1,5 +1,3 @@
-import { UserProvider } from '../../context/UserContext'
-
 import Navbar from '../../components/navbar'
 import Sidebar from "../../components/sidebar"
 import CardRow from "../../components/cardRow"
@@ -11,7 +9,7 @@ import './index.scss'
 
 export default function Home() {
     return (
-        <UserProvider>
+        <>
             <Sidebar />
             <Navbar title={false} />
 
@@ -30,6 +28,6 @@ export default function Home() {
             </section>
 
             <Footer />
-        </UserProvider>
+        </>
     )
 }

@@ -5,56 +5,93 @@ import { axiosApi } from '../../config/axios.config'
 import './index.scss'
 
 export default function FormProfile() {
-    const [idUser] = useState("614a0b5a59bd994c3c515833");
     const { user } = useContext(UserContext)
 
-
+    const [idUser, setIdUser] = useState("");
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
     const [celular, setCelular] = useState("")
     const [cep, setCep] = useState("")
     const [cidade, setCidade] = useState("")
     const [logradouro, setLogradouro] = useState("")
     const [bairro, setBairro] = useState("")
+    const [estado, setEstado] = useState("")
     const [numero, setNumero] = useState("")
 
-    console.log(user)
+    const [styleEmail, setStyleEmail] = useState({})
+    const [msgEmail, setMsgEmail] = useState('Email para alterar senha')
+
+    const [styleSubmit, setStyleSubmit] = useState({})
+    const [msgSubmit, setMsgSubmit] = useState('Salvar')
+
 
     useEffect(() => {
         if (!user) return
-        setNome(user.nome_usuario)
-        setEmail(user.email_usuario)
-        setSenha("")
         setCelular(user.numero_telefone1)
-        setCep(user.cep_usuario)
-        setCidade(user.cidade_usuario)
         setLogradouro(user.rua_usuario)
+        setEstado(user.estado_usuario)
         setBairro(user.bairro_usuario)
+        setCidade(user.cidade_usuario)
+        setEmail(user.email_usuario)
         setNumero(user.num_usuario)
+        setNome(user.nome_usuario)
+        setCep(user.cep_usuario)
+        setIdUser(user._id)
     }, [user])
 
     async function handlerPutUser(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const put_user = await axiosApi({
-            method: 'PUT',
-            url: `/user/${idUser}`,
-            data: {
-                nome_usuario: nome,
-                email_usuario: email,
-                senha1_usuario: senha,
-                numero_telefone1: celular,
-                cep_usuario: cep,
-                cidade_usuario: cidade,
-                rua_usuario: logradouro,
-                bairro_usuario: bairro,
-                num_usuario: numero,
-
-                estado_usuario: "",
-                numero_telefone2: ""
-            }
-        })
+        try {
+            await axiosApi({
+                method: 'PUT',
+                url: `/user/${idUser}`,
+                data: {
+                    nome_usuario: nome,
+                    email_usuario: email,
+                    senha1_usuario: user.senha1_usuario,
+                    senha2_usuario: user.senha2_usuario,
+                    rua_usuario: logradouro,
+                    bairro_usuario: bairro,
+                    cidade_usuario: cidade,
+                    estado_usuario: estado,
+                    num_usuario: numero,
+                    cep_usuario: cep,
+                    tipo_telefone: user.tipo_telefone,
+                    numero_telefone1: celular,
+                    numero_telefone2: user.numero_telefone2,
+                }
+            })
+            setStyleSubmit({ background: '#81d87c' })
+            setMsgSubmit('Sucesso!')
+        } catch (error) {
+            setStyleSubmit({ background: '#d87c7c' })
+            setMsgSubmit('Ops!!!')
+            console.log(error)
+        }
+        setTimeout(() => {
+            setStyleSubmit({})
+            setMsgSubmit('Salvar')
+        }, 3000)
     }
+
+    async function handlerEmailPass() {
+        try {
+            await axiosApi({
+                method: 'POST',
+                url: `new_pass/email/${idUser}`
+            })
+            setStyleEmail({ background: '#81d87c' })
+            setMsgEmail('Email enviado com sucesso!!!')
+        } catch (error) {
+            setStyleEmail({ background: '#d87c7c' })
+            setMsgEmail('Desculpe, houve um erro!!!')
+        }
+        setTimeout(() => {
+            setStyleEmail({})
+            setMsgEmail('Email para alterar senha')
+        }, 5000)
+    }
+
 
     //Efeito de subir as label do Form
     useEffect(() => {
@@ -75,7 +112,7 @@ export default function FormProfile() {
             })
         })
 
-    }, [nome, email, senha, celular, cep, cidade, logradouro, bairro, numero])
+    }, [nome, email, celular, cep, cidade, logradouro, bairro, numero])
 
     return (
         <form onSubmit={(e) => { handlerPutUser(e) }} id="form-data">
@@ -107,18 +144,6 @@ export default function FormProfile() {
 
                 <div className="content-inputs">
                     <div className="content-data">
-                        <label htmlFor="senha-data" className="label-data" >Senha </label>
-                        <input
-                            required
-                            type="password"
-                            className="input-data"
-                            id="senha-data"
-                            value={senha}
-                            onChange={(e) => { setSenha(e.target.value) }}
-                        />
-                    </div>
-
-                    <div className="content-data">
                         <label htmlFor="telefone-data" className="label-data" > Celular </label>
                         <input
                             required
@@ -131,6 +156,18 @@ export default function FormProfile() {
                             onChange={(e) => { setCelular(e.target.value.replace(/[^0-9]/g, "")) }}
                         />
                     </div>
+
+                    <div className="content-data">
+                        <span
+                            className="input-data"
+                            id="senha-data"
+                            onClick={handlerEmailPass}
+                            style={styleEmail}
+                        >
+                            {msgEmail}
+                        </span>
+                    </div>
+
                 </div>
             </fieldset>
 
@@ -164,44 +201,59 @@ export default function FormProfile() {
                     </div>
                 </div>
 
-                <div className="content-data">
-                    <label htmlFor="rua-data" className="label-data" >Logradouro </label>
-                    <input
-                        required
-                        type="text"
-                        className="input-data"
-                        id="rua-data"
-                        value={logradouro}
-                        onChange={(e) => { setLogradouro(e.target.value) }}
-                    />
+                <div className="content-inputs">
+                    <div className="content-data">
+                        <label htmlFor="bairro-data" className="label-data" >Bairro </label>
+                        <input
+                            required
+                            type="text"
+                            className="input-data"
+                            id="bairro-data"
+                            value={bairro}
+                            onChange={(e) => { setBairro(e.target.value) }}
+                        />
+                    </div>
+
+                    <div className="content-data">
+                        <label htmlFor="estado-data" className="label-data" >Estado </label>
+                        <input
+                            required
+                            type="text"
+                            className="input-data"
+                            id="estado-data"
+                            value={estado}
+                            onChange={(e) => { setEstado(e.target.value) }}
+                        />
+                    </div>
                 </div>
 
-                <div className="content-data">
-                    <label htmlFor="bairro-data" className="label-data" >Bairro </label>
-                    <input
-                        required
-                        type="text"
-                        className="input-data"
-                        id="bairro-data"
-                        value={bairro}
-                        onChange={(e) => { setBairro(e.target.value) }}
-                    />
-                </div>
+                <div className="content-inputs">
+                    <div className="content-data">
+                        <label htmlFor="rua-data" className="label-data" >Logradouro </label>
+                        <input
+                            required
+                            type="text"
+                            className="input-data"
+                            id="rua-data"
+                            value={logradouro}
+                            onChange={(e) => { setLogradouro(e.target.value) }}
+                        />
+                    </div>
 
-                <div className="content-data">
-                    <label htmlFor="numero-data" className="label-data" >Numero </label>
-                    <input
-                        required
-                        type="text"
-                        className="input-data"
-                        id="numero-data"
-                        value={numero}
-                        onChange={(e) => { setNumero(e.target.value) }}
-                    />
+                    <div className="content-data">
+                        <label htmlFor="numero-data" className="label-data" >Numero </label>
+                        <input
+                            required
+                            type="text"
+                            className="input-data"
+                            id="numero-data"
+                            value={numero}
+                            onChange={(e) => { setNumero(e.target.value) }}
+                        />
+                    </div>
                 </div>
-
             </fieldset>
-            <input type="submit" value="Salvar" />
+            <input type="submit" value={msgSubmit} style={styleSubmit} />
         </form>
     )
 }

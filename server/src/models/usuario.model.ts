@@ -28,8 +28,8 @@ const schema = new Schema<UsuarioInterface>(
         //Usuario
         nome_usuario: { type: String, required: true },
         email_usuario: { type: String, required: true },
-        senha1_usuario: { type: String, required: true },
-        senha2_usuario: { type: String, required: true },
+        senha1_usuario: { type: String, required: true},
+        senha2_usuario: { type: String },
         eAdmin: { type: Boolean, default: false },
         status: {
             type: String,

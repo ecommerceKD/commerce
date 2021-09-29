@@ -34,10 +34,12 @@ form#form-data {
 
       &:focus-within > label {
         bottom: 35px;
+        cursor: default;
       }
 
       .focus {
         bottom: 35px;
+        cursor: default;
       }
 
       > label {
@@ -47,6 +49,7 @@ form#form-data {
         color: $Primary-color;
         font-weight: bold;
         transition: all 0.4s ease-in-out;
+        cursor: text;
       }
 
       input.input-data {
@@ -61,15 +64,32 @@ form#form-data {
         &:focus {
           border-bottom: 1px solid $Primary-color;
         }
+      }
 
-        &:focus > label.label-data {
-          top: 0;
+      span#senha-data {
+        margin-top: 5px;
+        border-radius: 4px;
+        border: 1px solid;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 1em;
+        text-align: center;
+
+        &:hover {
+          border: 1px solid $Secondary-color;
+          background: $Secondary-color;
         }
+
+        &:active{
+          transform: scale(0.9);
+          background: $Primary-color;
+        }
+
       }
     }
   }
 
-  input[type="submit"]{
+  input[type="submit"] {
     border: none;
     width: 100px;
     padding: 10px 20px;
@@ -78,12 +98,12 @@ form#form-data {
     font-size: 1em;
     cursor: pointer;
 
-    &:hover{
-      filter: invert(.1);
+    &:hover {
+      filter: invert(0.1);
     }
 
-    &:active{
-      transform: scale(.9)
+    &:active {
+      transform: scale(0.9);
     }
   }
 }

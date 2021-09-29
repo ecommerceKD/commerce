@@ -105,7 +105,7 @@ async function update(req: Request, res: Response) {
                 "email_usuario": req.body.email_usuario,
                 "senha1_usuario": hash_pass1,
                 "senha2_usuario": hash_pass2,
-                "eAdmin": req.body.eAdmin,
+                // "eAdmin": req.body.eAdmin,
                 // "status": req.body.status,
                 // "confirmationCode": req.body.confirmationCode,
                 "rua_usuario": req.body.rua_usuario,

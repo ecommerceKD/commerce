@@ -15,11 +15,15 @@ interface InterfaceNavbar {
 
 
 export default function Navbar(props: InterfaceNavbar) {
+    const { user } = useContext(UserContext)
     const [redirect, setRedirect] = useState('/login')
     const [username, setUsername] = useState('')
+    const [contOrders, setContOrders] = useState('1')
+
     const styleTitle = props.title ? "" : "none"
 
-    const { user } = useContext(UserContext)
+    if (Number(contOrders) > 9) setContOrders('9+')
+
 
     useMemo(() => {
         if (user) {
@@ -37,16 +41,20 @@ export default function Navbar(props: InterfaceNavbar) {
 
                 <h1 id="title-bar" style={{ display: styleTitle }}>UMBU</h1>
 
-                <div className="content-buttons" id="left-buttons-bar">
+                <div className="content-buttons">
                     <div id="info-user">
                         <CgProfile id="login-button-icon" />
                         <div id="content-info-user">
-                            <Link id="login-link" to={redirect}>
+                            <Link className="text-info-user" to={redirect}>
                                 {username ? username : "Entrar"}
                             </Link>
+                            <p className='text-info-user'>
+                                Sair
+                            </p>
                         </div>
                     </div>
-                    <button className="menu-button">
+                    <button className="car-button">
+                        <span id="cont-orders">{contOrders}</span>
                         <RiShoppingCart2Line id="car-button-icon" />
                     </button>
                 </div>

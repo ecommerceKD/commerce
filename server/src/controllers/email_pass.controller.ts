@@ -7,7 +7,7 @@ async function email_pass(req: Request, res: Response) {
     const id = req.params.id
 
     try {
-        const user = await Usuario.findOne({ id: id })
+        const user = await Usuario.findOne({ _id: id })
         send_email(
             user.email_usuario,
             user.nome_usuario,

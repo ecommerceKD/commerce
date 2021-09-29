@@ -7,11 +7,11 @@ import {
 import Home from "../views/home"
 import Profile from "../views/profile"
 
-// import { UserProvider } from '../context/UserContext'
+import { UserProvider } from '../context/UserContext'
 
 export default function Router() {
     return (
-        // <UserProvider>
+        <UserProvider>
             <BrowserRouter>
                 <Switch>
                     <Route path="/" component={Home} exact />,
@@ -20,6 +20,6 @@ export default function Router() {
                     <Route path="*" component={Home} />
                 </Switch>
             </BrowserRouter>
-        // </UserProvider>
+        </UserProvider>
     )
 }

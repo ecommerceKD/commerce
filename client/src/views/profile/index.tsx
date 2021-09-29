@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UserProvider } from '../../context/UserContext'
+import { UserContext } from '../../context/UserContext'
 
 import { BsArrowLeft } from '../../icons'
 
@@ -15,6 +15,8 @@ import './index.scss'
 
 
 export default function Profile() {
+    const { user } = useContext(UserContext)
+    const [username, setUsername] = useState('')
     const [option1, setOption1] = useState(false)
     const [option2, setOption2] = useState(false)
     const [option3, setOption3] = useState(true)
@@ -83,20 +85,23 @@ export default function Profile() {
     useEffect(() => {
         handleOrders(5)
         handleAddress(6)
-    }, [])
+
+        if (user) setUsername(user.nome_usuario)
+
+    }, [user])
 
     return (
-
-
-        <UserProvider>
-            <Navbar title={true}/>
+        <>
+            <Navbar title={true} />
             <Sidebar />
             <main id="main-profile">
                 <div id="username-profile">
                     <Link to="/" id="back-arrow">
                         <BsArrowLeft id="back-arrow-profile" />
                     </Link>
-                    <h1 id="user-profile">{"Username"}</h1>
+                    <h1 id="user-profile">
+                        {username}
+                    </h1>
                 </div>
 
                 <section id="dados-profile">
@@ -170,6 +175,6 @@ export default function Profile() {
             </main>
 
             <Footer />
-        </UserProvider>
+        </>
     )
 }
